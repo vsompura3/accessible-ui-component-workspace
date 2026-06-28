@@ -1,6 +1,6 @@
 import fs from "fs"
-import path from "path"
 import Link from "next/link"
+import path from "path"
 
 interface ComponentMetadata {
   name: string
@@ -9,7 +9,12 @@ interface ComponentMetadata {
 
 export default function Page() {
   const componentsDir = path.join(process.cwd(), "components")
-  let components: { slug: string; path: string; name: string; description: string }[] = []
+  let components: {
+    slug: string
+    path: string
+    name: string
+    description: string
+  }[] = []
 
   if (fs.existsSync(componentsDir)) {
     const dirs = fs
@@ -46,14 +51,15 @@ export default function Page() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col p-8 md:p-16 max-w-6xl mx-auto">
+    <div className="mx-auto flex min-h-svh max-w-6xl flex-col p-8 md:p-16">
       {/* Title & Description Section */}
       <div className="mb-12 flex max-w-2xl flex-col gap-3">
-        <h1 className="text-4xl font-extrabold tracking-tight font-heading text-foreground">
-          Project Components
+        <h1 className="font-heading text-4xl font-extrabold tracking-tight text-foreground">
+          Inclusive Blocks by Vaibhav Sompura
         </h1>
-        <p className="text-lg text-muted-foreground leading-relaxed">
-          Select a component below to inspect its interactive preview, copy code snippets, and review keyboard and screen reader specifications.
+        <p className="text-lg leading-relaxed text-muted-foreground">
+          Select a component below to inspect its interactive preview, copy code
+          snippets, and review keyboard and screen reader specifications.
         </p>
       </div>
 
@@ -68,10 +74,10 @@ export default function Page() {
               className="group relative flex flex-col justify-between rounded-2xl border bg-card p-6 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-md dark:bg-card/50 dark:hover:bg-card"
             >
               <div className="flex flex-col gap-2.5">
-                <h2 className="text-xl font-bold font-heading text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
+                <h2 className="flex items-center justify-between font-heading text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                   {component.name}
                   <svg
-                    className="size-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                    className="size-4 text-primary opacity-0 transition-opacity group-hover:opacity-100"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -84,12 +90,12 @@ export default function Page() {
                     />
                   </svg>
                 </h2>
-                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                   {component.description}
                 </p>
               </div>
-              
-              <div className="mt-6 pt-4 border-t border-border/60 flex items-center justify-between font-mono text-[10px] text-muted-foreground select-none">
+
+              <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-4 font-mono text-[10px] text-muted-foreground select-none">
                 <span>Route: {component.path}</span>
                 <span className="font-sans text-[11px] font-medium text-primary group-hover:underline">
                   View Docs
@@ -100,7 +106,7 @@ export default function Page() {
       </div>
 
       {/* Footer utility node */}
-      <footer className="mt-16 border-t pt-8 flex items-center justify-between font-mono text-xs text-muted-foreground/80">
+      <footer className="mt-16 flex items-center justify-between border-t pt-8 font-mono text-xs text-muted-foreground/80">
         <span>Components library sandbox</span>
         <div className="flex items-center gap-1.5">
           Press{" "}
