@@ -1,0 +1,9 @@
+{
+  "name": "Accordion",
+  "description": "",
+  "props": [],
+  "a11y": {
+    "keyboardNavigation": [],
+    "ariaAttributes": []
+  }
+}

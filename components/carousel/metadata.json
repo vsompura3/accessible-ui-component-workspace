@@ -1,0 +1,9 @@
+{
+  "name": "Carousel",
+  "description": "",
+  "props": [],
+  "a11y": {
+    "keyboardNavigation": [],
+    "ariaAttributes": []
+  }
+}

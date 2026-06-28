@@ -1,0 +1,9 @@
+{
+  "name": "Dialog",
+  "description": "",
+  "props": [],
+  "a11y": {
+    "keyboardNavigation": [],
+    "ariaAttributes": []
+  }
+}

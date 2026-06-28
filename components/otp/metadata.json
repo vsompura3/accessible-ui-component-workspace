@@ -28,7 +28,7 @@
       "type": "(otp: string) => void",
       "default": null,
       "required": false,
-      "description": ""
+      "description": "Callback function triggered when all OTP digits are filled."
     }
   ],
   "a11y": {
