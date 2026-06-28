@@ -113,7 +113,7 @@ export default function DocsViewer({
         {activeTab === "preview" ? (
           <div className="flex flex-col gap-10">
             {/* Component Interactive Preview Card */}
-            <div className="relative flex min-h-[300px] items-center justify-center rounded-2xl border bg-card/45 p-8 shadow-xs backdrop-blur-xs transition-all hover:bg-card/60 dark:bg-card/25 dark:hover:bg-card/40">
+            <div className="relative flex min-h-[300px] items-center justify-center overflow-hidden rounded-2xl border bg-card/45 p-4 pt-10 shadow-xs backdrop-blur-xs transition-all hover:bg-card/60 sm:p-8 sm:pt-8 dark:bg-card/25 dark:hover:bg-card/40">
               <div className="absolute top-3 left-3 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground select-none">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>

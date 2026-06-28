@@ -72,7 +72,7 @@ function OtpInput({
 
   return (
     <div
-      className="flex gap-2"
+      className="flex gap-1.5 sm:gap-2"
       role="group"
       aria-label="One-time password"
       data-testid="otp-input-group"
@@ -103,7 +103,7 @@ function OtpInput({
             aria-label={`Enter OTP digit ${idx + 1}`}
             autoComplete={`${idx === 0 ? "one-time-code" : "off"}`}
             className={cn(
-              `h-12 w-12 rounded-lg border text-center text-2xl! caret-transparent placeholder:text-center placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-blue-500 focus:outline-none`
+              `h-9 w-9 rounded-lg border text-center text-xl! caret-transparent placeholder:text-center placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-primary focus:outline-none sm:h-12 sm:w-12 sm:text-2xl!`
             )}
           />
         </React.Fragment>
