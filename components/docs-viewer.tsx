@@ -7,7 +7,16 @@ import { Button } from "@/components/ui/button"
 interface CodeFile {
   filename: string
   content: string
-  html?: string
+  htmlLight?: string
+  htmlDark?: string
+}
+
+interface PropDefinition {
+  name: string
+  type: string
+  default: string | null
+  required: boolean
+  description: string
 }
 
 interface DocsViewerProps {
@@ -15,6 +24,7 @@ interface DocsViewerProps {
   description: string
   demo: React.ReactNode
   codeFiles: CodeFile[]
+  props?: PropDefinition[]
   a11y?: {
     keyboardNavigation?: { key: string; description: string }[]
     ariaAttributes?: { attribute: string; description: string }[]
@@ -26,6 +36,7 @@ export default function DocsViewer({
   description,
   demo,
   codeFiles,
+  props,
   a11y,
 }: DocsViewerProps) {
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview")
@@ -112,6 +123,67 @@ export default function DocsViewer({
               </div>
               <div className="w-full flex justify-center">{demo}</div>
             </div>
+
+            {/* Props API Table */}
+            {props && props.length > 0 && (
+              <section className="flex flex-col gap-4 border-t pt-8">
+                <h2 className="font-heading text-2xl font-bold tracking-tight">
+                  Props
+                </h2>
+                <div className="overflow-hidden rounded-xl border bg-card/20 backdrop-blur-xs">
+                  <table className="w-full border-collapse text-left text-sm">
+                    <thead>
+                      <tr className="border-b bg-muted/40 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                        <th className="p-3.5 font-semibold">Prop</th>
+                        <th className="p-3.5 font-semibold">Type</th>
+                        <th className="p-3.5 font-semibold">Default</th>
+                        <th className="p-3.5 font-semibold">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {props.map((prop) => (
+                        <tr
+                          key={prop.name}
+                          className="border-b last:border-0 transition-colors hover:bg-muted/10"
+                        >
+                          <td className="p-3.5">
+                            <div className="flex items-center gap-1.5">
+                              <code className="font-mono text-xs font-semibold text-foreground">
+                                {prop.name}
+                              </code>
+                              {prop.required && (
+                                <span className="rounded-full bg-destructive/15 px-1.5 py-0.5 font-mono text-[10px] font-medium text-destructive">
+                                  required
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3.5">
+                            <code className="rounded-md bg-teal-50 px-1.5 py-0.5 font-mono text-xs font-medium text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
+                              {prop.type}
+                            </code>
+                          </td>
+                          <td className="p-3.5">
+                            {prop.default != null ? (
+                              <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-xs text-muted-foreground">
+                                {prop.default}
+                              </code>
+                            ) : (
+                              <span className="text-xs text-muted-foreground/50">—</span>
+                            )}
+                          </td>
+                          <td className="p-3.5 text-sm leading-relaxed text-muted-foreground">
+                            {prop.description || (
+                              <span className="italic text-muted-foreground/40">No description</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            )}
 
             {/* Accessibility Specifications */}
             {a11y &&
@@ -297,11 +369,19 @@ export default function DocsViewer({
                 </Button>
               </div>
               <div className="overflow-x-auto p-4 bg-muted/20 select-text">
-                {codeFiles[activeFileIndex]?.html ? (
-                  <div
-                    className="font-mono text-xs leading-relaxed [&_pre]:bg-transparent! [&_pre]:p-0! [&_pre]:m-0! [&_pre]:overflow-visible!"
-                    dangerouslySetInnerHTML={{ __html: codeFiles[activeFileIndex].html }}
-                  />
+                {codeFiles[activeFileIndex]?.htmlLight ? (
+                  <>
+                    {/* Light mode */}
+                    <div
+                      className="block dark:hidden font-mono text-xs leading-relaxed [&_pre]:bg-transparent! [&_pre]:p-0! [&_pre]:m-0! [&_pre]:overflow-visible!"
+                      dangerouslySetInnerHTML={{ __html: codeFiles[activeFileIndex].htmlLight! }}
+                    />
+                    {/* Dark mode */}
+                    <div
+                      className="hidden dark:block font-mono text-xs leading-relaxed [&_pre]:bg-transparent! [&_pre]:p-0! [&_pre]:m-0! [&_pre]:overflow-visible!"
+                      dangerouslySetInnerHTML={{ __html: codeFiles[activeFileIndex].htmlDark! }}
+                    />
+                  </>
                 ) : (
                   <pre className="font-mono text-xs leading-relaxed text-foreground">
                     <code>{codeFiles[activeFileIndex]?.content}</code>

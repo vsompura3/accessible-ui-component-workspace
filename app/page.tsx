@@ -141,7 +141,7 @@ export default function Page() {
         <h1 className="font-heading text-5xl font-extrabold leading-[1.08] tracking-tight text-foreground md:text-[5rem]">
           Inclusive
           <br />
-          <span className="bg-gradient-to-r from-primary via-chart-2 to-chart-3 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-teal-500 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
             Blocks
           </span>
         </h1>
@@ -281,7 +281,7 @@ export default function Page() {
                 Created by
               </p>
               <div className="flex items-center gap-4">
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-chart-2 font-heading text-lg font-black text-primary-foreground">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-400 font-heading text-lg font-black text-white">
                   VS
                 </div>
                 <div>

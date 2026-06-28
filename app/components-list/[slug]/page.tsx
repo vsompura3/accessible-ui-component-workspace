@@ -15,9 +15,18 @@ interface AriaGuideline {
   description: string
 }
 
+interface PropDefinition {
+  name: string
+  type: string
+  default: string | null
+  required: boolean
+  description: string
+}
+
 interface ComponentMetadata {
   name: string
   description: string
+  props?: PropDefinition[]
   a11y: {
     keyboardNavigation?: KeyboardGuideline[]
     ariaAttributes?: AriaGuideline[]
@@ -82,20 +91,17 @@ export default async function ComponentPage({
     files.map(async (filename) => {
       const filePath = path.join(componentDir, filename)
       const content = fs.readFileSync(filePath, "utf8")
-      let html = ""
+      let htmlLight = ""
+      let htmlDark = ""
       try {
-        html = await codeToHtml(content, {
-          lang: "tsx",
-          theme: "github-dark",
-        })
+        ;[htmlLight, htmlDark] = await Promise.all([
+          codeToHtml(content, { lang: "tsx", theme: "github-light" }),
+          codeToHtml(content, { lang: "tsx", theme: "github-dark" }),
+        ])
       } catch (err) {
         console.error(`Failed to highlight ${filename}`, err)
       }
-      return {
-        filename,
-        content,
-        html,
-      }
+      return { filename, content, htmlLight, htmlDark }
     })
   )
 
@@ -103,20 +109,17 @@ export default async function ComponentPage({
   const demoPath = path.join(componentDir, "demo.tsx")
   if (fs.existsSync(demoPath)) {
     const content = fs.readFileSync(demoPath, "utf8")
-    let html = ""
+    let htmlLight = ""
+    let htmlDark = ""
     try {
-      html = await codeToHtml(content, {
-        lang: "tsx",
-        theme: "github-dark",
-      })
+      ;[htmlLight, htmlDark] = await Promise.all([
+        codeToHtml(content, { lang: "tsx", theme: "github-light" }),
+        codeToHtml(content, { lang: "tsx", theme: "github-dark" }),
+      ])
     } catch (err) {
       console.error(`Failed to highlight demo.tsx`, err)
     }
-    codeFiles.push({
-      filename: "demo.tsx",
-      content,
-      html,
-    })
+    codeFiles.push({ filename: "demo.tsx", content, htmlLight, htmlDark })
   }
 
   // 3. Dynamically import the Demo component
@@ -140,6 +143,7 @@ export default async function ComponentPage({
         description={metadata.description}
         demo={<DemoComponent />}
         codeFiles={codeFiles}
+        props={metadata.props}
         a11y={metadata.a11y}
       />
     </div>
