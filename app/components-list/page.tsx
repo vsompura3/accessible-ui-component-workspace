@@ -14,6 +14,7 @@ export default function ComponentsPage() {
     path: string
     name: string
     description: string
+    comingSoon: boolean
   }[] = []
 
   if (fs.existsSync(componentsDir)) {
@@ -41,11 +42,20 @@ export default function ComponentsPage() {
         }
       }
 
+      let comingSoon = false
+      const demoPath = path.join(componentsDir, d.name, "demo.tsx")
+      if (fs.existsSync(demoPath)) {
+        try {
+          comingSoon = fs.readFileSync(demoPath, "utf8").includes("Coming Soon")
+        } catch (err) {}
+      }
+
       return {
         slug: d.name,
         path: `/components-list/${d.name}`,
         name: metadata.name,
         description: metadata.description,
+        comingSoon,
       }
     })
   }
@@ -94,41 +104,61 @@ export default function ComponentsPage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {components
             .sort((a, b) => a.name.localeCompare(b.name))
-            .map((component) => (
-              <Link
-                key={component.slug}
-                href={component.path}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-card/60 p-6 shadow-xs backdrop-blur-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card hover:shadow-md"
-              >
-                {/* Hover gradient accent */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            .map((component) => {
+              const CardWrapper = (component.comingSoon ? "div" : Link) as any
+              return (
+                <CardWrapper
+                  key={component.slug}
+                  href={component.comingSoon ? undefined : component.path}
+                  className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-card/60 p-6 shadow-xs backdrop-blur-xs transition-all duration-200 ${
+                    component.comingSoon
+                      ? "opacity-70 grayscale cursor-not-allowed"
+                      : "hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card hover:shadow-md"
+                  }`}
+                >
+                  {/* Hover gradient accent */}
+                  {!component.comingSoon && (
+                    <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  )}
 
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-start justify-between gap-2">
-                    <h2 className="font-heading text-lg font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
-                      {component.name}
-                    </h2>
-                    <span className="mt-0.5 shrink-0 rounded-full border bg-muted p-1.5 text-muted-foreground transition-all group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary">
-                      <svg className="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </span>
+                  <div className="flex flex-col gap-2.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <h2 className={`font-heading text-lg font-bold leading-snug text-foreground transition-colors ${!component.comingSoon ? "group-hover:text-primary" : ""}`}>
+                          {component.name}
+                        </h2>
+                        {component.comingSoon && (
+                          <span className="rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                            Coming Soon
+                          </span>
+                        )}
+                      </div>
+                      {!component.comingSoon && (
+                        <span className="mt-0.5 shrink-0 rounded-full border bg-muted p-1.5 text-muted-foreground transition-all group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary">
+                          <svg className="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </span>
+                      )}
+                    </div>
+                    <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                      {component.description || "In development..."}
+                    </p>
                   </div>
-                  <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                    {component.description}
-                  </p>
-                </div>
 
-                <div className="mt-5 flex items-center justify-between border-t border-border/50 pt-4">
-                  <code className="font-mono text-[10px] text-muted-foreground/70">
-                    /components-list/{component.slug}
-                  </code>
-                  <span className="text-[11px] font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                    View Docs →
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  <div className="mt-5 flex items-center justify-between border-t border-border/50 pt-4">
+                    <code className="font-mono text-[10px] text-muted-foreground/70">
+                      /components-list/{component.slug}
+                    </code>
+                    {!component.comingSoon && (
+                      <span className="text-[11px] font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                        View Docs →
+                      </span>
+                    )}
+                  </div>
+                </CardWrapper>
+              )
+            })}
         </div>
       </main>
 
