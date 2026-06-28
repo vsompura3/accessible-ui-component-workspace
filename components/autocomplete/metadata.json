@@ -1,0 +1,18 @@
+{
+  "name": "AutoComplete",
+  "description": "An accessible autocomplete combobox for searching and selecting options from a list with screen reader and keyboard support.",
+  "a11y": {
+    "keyboardNavigation": [
+      { "key": "ArrowDown", "description": "Moves focus to the next item in the suggestions list." },
+      { "key": "ArrowUp", "description": "Moves focus to the previous item in the suggestions list." },
+      { "key": "Enter", "description": "Selects the currently active item and closes the suggestion list." },
+      { "key": "Escape", "description": "Closes the suggestions list." }
+    ],
+    "ariaAttributes": [
+      { "attribute": "role=\"combobox\"", "description": "Indicates the input behaves as a combobox control." },
+      { "attribute": "aria-expanded", "description": "Indicates whether the suggestions list is open or closed." },
+      { "attribute": "role=\"listbox\"", "description": "Identifies the list container of suggestions." },
+      { "attribute": "role=\"option\"", "description": "Identifies each item inside the suggestions listbox." }
+    ]
+  }
+}

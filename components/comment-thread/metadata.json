@@ -1,0 +1,16 @@
+{
+  "name": "Comment Thread",
+  "description": "An accessible nested discussion thread or comments feed, utilizing semantic article layout, collapsing/expanding sub-threads, and full keyboard accessibility.",
+  "a11y": {
+    "keyboardNavigation": [
+      { "key": "Tab", "description": "Moves focus between comments, replies, voting controls, and text input areas." },
+      { "key": "Space / Enter", "description": "Triggers comment collapse, vote actions, and form submissions." }
+    ],
+    "ariaAttributes": [
+      { "attribute": "role=\"feed\"", "description": "Identifies the scrollable container of discussion items." },
+      { "attribute": "role=\"article\"", "description": "Represents each individual comment block." },
+      { "attribute": "aria-expanded", "description": "Indicates whether replies to a comment are visible or collapsed." },
+      { "attribute": "role=\"group\"", "description": "Groups the nested reply comments under their parent comment." }
+    ]
+  }
+}
