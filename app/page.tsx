@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const CREATOR = {
   name: "Vaibhav Sompura",
@@ -281,9 +282,13 @@ export default function Page() {
                 Created by
               </p>
               <div className="flex items-center gap-4">
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-400 font-heading text-lg font-black text-white">
-                  VS
-                </div>
+                <Image
+                  src="https://avatars.githubusercontent.com/u/42895093?v=4"
+                  alt="Vaibhav Sompura"
+                  width={48}
+                  height={48}
+                  className="size-12 shrink-0 rounded-full object-cover ring-2 ring-teal-500/30"
+                />
                 <div>
                   <p className="font-heading text-base font-bold text-foreground">
                     Vaibhav Sompura
