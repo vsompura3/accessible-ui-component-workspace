@@ -26,7 +26,7 @@ interface ComponentMetadata {
 
 export async function generateStaticParams() {
   const componentsDir = path.join(process.cwd(), "components")
-  
+
   if (!fs.existsSync(componentsDir)) {
     return []
   }
@@ -99,7 +99,7 @@ export default async function ComponentPage({
     })
   )
 
-  // Also include the demo file code if it exists and we want to view it
+  // Also include the demo file code if it exists
   const demoPath = path.join(componentDir, "demo.tsx")
   if (fs.existsSync(demoPath)) {
     const content = fs.readFileSync(demoPath, "utf8")
@@ -134,7 +134,7 @@ export default async function ComponentPage({
   })
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div className="min-h-screen bg-background font-sans text-foreground">
       <DocsViewer
         name={metadata.name}
         description={metadata.description}

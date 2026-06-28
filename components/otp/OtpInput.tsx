@@ -92,6 +92,7 @@ function OtpInput({
             key={idx}
             type="text"
             inputMode="numeric"
+            placeholder="0"
             maxLength={1}
             disabled={disabled}
             ref={(el) => void (inputRefs.current[idx] = el)}
@@ -102,7 +103,7 @@ function OtpInput({
             aria-label={`Enter OTP digit ${idx + 1}`}
             autoComplete={`${idx === 0 ? "one-time-code" : "off"}`}
             className={cn(
-              `h-12 w-12 rounded-lg border text-center text-2xl! caret-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none`
+              `h-12 w-12 rounded-lg border text-center text-2xl! caret-transparent placeholder:text-center placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-blue-500 focus:outline-none`
             )}
           />
         </React.Fragment>

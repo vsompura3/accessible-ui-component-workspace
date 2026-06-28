@@ -44,7 +44,7 @@ export default function DocsViewer({
       <header className="flex flex-col gap-4 border-b pb-6">
         <div className="flex items-center justify-between">
           <Link
-            href="/"
+            href="/components-list"
             className="group flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
           >
             <svg
@@ -60,7 +60,7 @@ export default function DocsViewer({
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            Back to Home
+            All Components
           </Link>
         </div>
         <div className="flex flex-col gap-2">

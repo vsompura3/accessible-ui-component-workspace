@@ -1,16 +1,57 @@
 {
   "name": "OTP Input",
   "description": "An accessible One-Time Password input component supporting keyboard navigation, digit constraints, and dynamic separation.",
+  "props": [
+    {
+      "name": "maxLength",
+      "type": "number",
+      "default": "6",
+      "required": false,
+      "description": "Total number of OTP digit boxes to render."
+    },
+    {
+      "name": "separator",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "When true, renders a dash separator at the midpoint of the digit boxes."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables all input boxes when true, preventing user interaction."
+    }
+  ],
   "a11y": {
     "keyboardNavigation": [
-      { "key": "ArrowLeft", "description": "Moves focus to the previous input box." },
-      { "key": "ArrowRight", "description": "Moves focus to the next input box." },
-      { "key": "Backspace", "description": "Deletes the current value and shifts focus back if empty." }
+      {
+        "key": "ArrowLeft",
+        "description": "Moves focus to the previous input box."
+      },
+      {
+        "key": "ArrowRight",
+        "description": "Moves focus to the next input box."
+      },
+      {
+        "key": "Backspace",
+        "description": "Deletes the current value and shifts focus back if empty."
+      }
     ],
     "ariaAttributes": [
-      { "attribute": "role=\"group\"", "description": "Announces a collection of related inputs to screen readers." },
-      { "attribute": "aria-label", "description": "Gives a descriptive name to the OTP input group." },
-      { "attribute": "aria-label=\"Enter OTP digit X\"", "description": "Identifies the digit number for each single input." }
+      {
+        "attribute": "role=\"group\"",
+        "description": "Announces a collection of related inputs to screen readers."
+      },
+      {
+        "attribute": "aria-label",
+        "description": "Gives a descriptive name to the OTP input group."
+      },
+      {
+        "attribute": "aria-label=\"Enter OTP digit X\"",
+        "description": "Identifies the digit number for each single input."
+      }
     ]
   }
 }

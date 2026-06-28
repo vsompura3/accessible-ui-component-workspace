@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync-metadata": "node scripts/sync-metadata.mjs --once",
+    "sync-metadata:watch": "node scripts/sync-metadata.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
