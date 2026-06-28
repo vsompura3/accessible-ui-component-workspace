@@ -1,12 +1,16 @@
-import { Geist, Geist_Mono, Inter, Figtree } from "next/font/google"
+import { Figtree, Geist, Geist_Mono, Inter } from "next/font/google"
 
-import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
+import { Toaster } from "react-hot-toast"
+import "./globals.css"
 
-const figtreeHeading = Figtree({subsets:['latin'],variable:'--font-heading'});
+const figtreeHeading = Figtree({
+  subsets: ["latin"],
+  variable: "--font-heading",
+})
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -22,10 +26,17 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, figtreeHeading.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        inter.variable,
+        figtreeHeading.variable
+      )}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
+        <Toaster />
       </body>
     </html>
   )

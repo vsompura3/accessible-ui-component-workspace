@@ -22,6 +22,13 @@
       "default": "false",
       "required": false,
       "description": "Disables all input boxes when true, preventing user interaction."
+    },
+    {
+      "name": "onComplete",
+      "type": "(otp: string) => void",
+      "default": null,
+      "required": false,
+      "description": ""
     }
   ],
   "a11y": {
